@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          editText2= (EditText)findViewById(R.id.editText4);
 
     }
-
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//THESE ARE THE LIFECYCLE EVENTS OF ACTIVITIES TO CHECK THAT HOW DOES ACTIVTY WORKS
     @Override
     protected void onStart() {
         super.onStart();
@@ -93,36 +93,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         System.out.println("i came in destroy method of main activity");
     }
+    //THE SUBMIT BUTTON MENTIONS THAT ACTION WHICH WILL BE TAKEN WHEN AN EVENT OF CLICK HAPPENS
     public void submit(){
         final String username = editText1.getText().toString().trim();
         final String password = editText2.getText().toString().trim();
-
-      /*  StringRequest stringRequest= new StringRequest(Request.Method.POST, Register_Url, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error.toString());
-                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }){
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put(KEY_USERNAME,username);
-                params.put(KEY_PASSWORD,password);
-                return params;
-
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);*/
+        //INTENT FILTER IS USED, WHOSE ACTION WILL BE TRIGERRED WHEN FOLLOWING ACTIONS TAKES PLACE BY SYSTEM
         IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+     //BROADCAST RECIEVER IS REGISTERED WHICH WILL WORK ON NETCHANGE
         myreciever = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -132,13 +111,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if (info.getState() == NetworkInfo.State.CONNECTED) {
                         Toast.makeText(context, "internet connectivity is on", Toast.LENGTH_LONG).show();
+                    //RESULT IS USED TO BE ACTING LIKE FLAG
                         MainActivity.RESULT="CONNECTED";
-                        //      R.id.bn_submit.enable;
                     } else {
                         Toast.makeText(context, "internet connectivity is  off", Toast.LENGTH_LONG).show();
 
                     }
-
+                    //SINCE WHEN I TRIED TO RUN THE APPLICATION,IT WAS STOPPING UNFORTUNATELY & TO HANDLE IT I USED EXCEPTION HANDLING AND IT WORKED
                 }catch(Exception e){
 
                     MainActivity.RESULT="DISCONNECTED";
@@ -147,15 +126,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         super.registerReceiver(myreciever,intentFilter);
-        Intent intent1 = new Intent(this,LoginService.class);
 
-       /* EditText editText1 = (EditText) findViewById(R.id.editText3);
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        //THIS IS THE WORK FOR INTERACTING WITH THE API  AND USE OF SERVICES
+        Intent intent1 = new Intent(this,LoginService.class);
+        /* EditText editText1 = (EditText) findViewById(R.id.editText3);
         username =editText1.getText().toString();
         editText1 = (EditText)findViewById(R.id.editText4);
          password =editText1.getText().toString();*/
         intent1.putExtra("Username",username);
         intent1.putExtra("Password",password);
         startService(intent1);
+
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        //THIS IS THE WORK OF THREADS..AND HANDLERS....CURRENTLY WORKING UPON
         thread = new Thread(new Mythread());
         thread.start();
         handler = new Handler(){
@@ -192,6 +177,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 }
 
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// THIS WORK DEALS WITH THE DIFFERENT CLASS FOR THREADS IMPLEMENTATION
 class Mythread implements Runnable{
     @Override
     public void run() {

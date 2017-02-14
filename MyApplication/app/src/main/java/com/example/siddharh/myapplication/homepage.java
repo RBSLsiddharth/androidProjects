@@ -10,6 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import static android.R.attr.onClick;
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//THIS CLASS WAS USED TO SHOW THE HOMEPAGE  ....BUT NOT  ANYMORE IN USE
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 public class homepage extends AppCompatActivity implements View.OnClickListener  {
 RelativeLayout linearLayout;

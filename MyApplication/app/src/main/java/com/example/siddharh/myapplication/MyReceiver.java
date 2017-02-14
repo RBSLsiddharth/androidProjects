@@ -13,6 +13,13 @@ import android.widget.Toast;
 
 import static java.lang.System.out;
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//THIS BROADCAST RECIEVER WAS USED BEFORE ,WHEN I WAS LAUNCHING BROADCAST RECIEVER ON THE BUTTON CLICK EVENT.....BUT NOW SINCE WE ARE CREATING ANONYMOUSLY ON MAINACTIVITY ..THUS IT IS NOT LINKED ANYMORE
+//
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 public class MyReceiver extends BroadcastReceiver{
 
     public MyReceiver() {

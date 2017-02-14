@@ -12,6 +12,11 @@ import java.nio.charset.MalformedInputException;
 
 import static com.example.siddharh.myapplication.R.id.activity_processing;
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//THIS CLASS IS NOT IN USE ANYMORE ...THIS FILE WAS IN USE WHEN I STARTED WITH MY WORLD WITH ANDROID
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 public class ProcessingActivity extends AppCompatActivity {
 LinearLayout linearLayout;
     @Override

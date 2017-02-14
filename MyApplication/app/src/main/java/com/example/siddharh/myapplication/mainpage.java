@@ -80,7 +80,11 @@ System.out.println("i came in oncreate method");
     }
 
      public void Signup(){
-         System.out.println("I CAMe uprtiaaaasld");
+         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+         //THIS INTENT TAKES US BACK TO MAINPAGE, JUST BECAUSE WHEN I WAS WORKING ON API INTERACTION DUE TO STUCKING UP IN ERRORS ..I NEEDED TO DELETED THE SIGNUP XML DUE
+         // TO FORMATION OF ACTIVITY_XML AND CONTENT_XML
+         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
          Intent intent = new Intent(this, mainpage.class);
          startActivity(intent);
      }
