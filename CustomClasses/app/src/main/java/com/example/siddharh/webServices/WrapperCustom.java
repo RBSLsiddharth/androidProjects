@@ -1,16 +1,15 @@
-package com.example.siddharh.customclasses;
+package com.example.siddharh.webServices;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.siddharh.Configuration.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,19 +18,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.android.volley.Request.*;
-import static com.example.siddharh.customclasses.loginactivity.KEY_Username;
-import static com.example.siddharh.customclasses.loginactivity.Key_Password;
 
 /**
  * Created by siddharh on 18/2/17.
  */
 
-public class WrapperCustom  {
-Context context;
+public class WrapperCustom {
+public static Context context;
+private static WrapperCustom instance;
 
 
-    public WrapperCustom(Context context) {
-        this.context = context;
+    private WrapperCustom() {
+    }
+
+    public static WrapperCustom getInstance(Context cons) {
+       context= cons;
+        if(instance == null)
+        {
+            instance=new WrapperCustom();
+        }
+        return instance;
+
     }
 
     public Map<String,String> login(final Map<String,String> Parameters) {
@@ -80,7 +87,7 @@ Context context;
 
 
     public void redirect(){
-        Intent intent = new Intent(context,loginactivity.class);
+          Intent intent = new Intent(context,LoginActivity.class);
         context.startActivity(intent);
     }
 

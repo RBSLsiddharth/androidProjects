@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.siddharh.customclasses.loginactivity">
+    tools:context="com.example.siddharh.Configuration.LoginActivity">
 
     <TextView
         android:text="LOGIN YOURSELF with the login page"
@@ -18,35 +18,35 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="121dp"
         android:layout_marginTop="18dp"
-        android:id="@+id/textView"
-        android:layout_alignEnd="@+id/button" />
+        android:id="@+id/LabelTextview"
+        android:layout_alignEnd="@+id/LoginButton" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/LabelTextview"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="61dp"
-        android:id="@+id/editText" />
+        android:id="@+id/UsernameEdittext" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:layout_below="@+id/UsernameEdittext"
+        android:layout_alignStart="@+id/UsernameEdittext"
         android:layout_marginTop="44dp"
-        android:id="@+id/editText2" />
+        android:id="@+id/PasswordEditext" />
 
     <Button
         android:text="LOGIN YOURSELF!!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
-        android:id="@+id/button"
+        android:id="@+id/LoginButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -54,17 +54,17 @@
         android:text="USERNAME"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_alignBaseline="@+id/editText"
-        android:layout_alignBottom="@+id/editText"
+        android:id="@+id/UsernameTextview"
+        android:layout_alignBaseline="@+id/UsernameEdittext"
+        android:layout_alignBottom="@+id/UsernameEdittext"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:text="PASSWORD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
+        android:id="@+id/PasswordTextview"
+        android:layout_alignBaseline="@+id/PasswordEditext"
+        android:layout_alignBottom="@+id/PasswordEditext"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

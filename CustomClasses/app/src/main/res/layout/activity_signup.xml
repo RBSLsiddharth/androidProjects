@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.siddharh.customclasses.signupactivity"
+    tools:context="com.example.siddharh.Configuration.SignupActivity"
     >
 
     <LinearLayout
@@ -26,9 +26,8 @@
                 android:text="USERNAME"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView2"
                 android:layout_alignParentStart="true"
-                android:id="@+id/textView5"
+                android:id="@+id/UsernameTextview"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="25"
                 android:gravity="center"/>
@@ -37,7 +36,7 @@
                 android:text="PASSWORD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6"
+                android:id="@+id/PasswordTextview"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="25" />
@@ -45,9 +44,7 @@
                 android:text="CONFIRM PASSWORD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView6"
-                android:layout_alignStart="@+id/textView6"
-                android:id="@+id/textView7"
+                android:id="@+id/ConfirmPasswordTextview"
                 android:gravity="center"
                 android:layout_weight="25"
                 android:layout_gravity="center_horizontal"/>
@@ -55,9 +52,7 @@
                 android:text="REFFERAL CODE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView6"
-                android:layout_alignStart="@+id/textView6"
-                android:id="@+id/textView8"
+                android:id="@+id/RefferalCodeTexview"
                 android:gravity="center"
                 android:layout_weight="25"
                 android:layout_gravity="center_horizontal"/>
@@ -76,7 +71,7 @@
                 android:ems="10"
                 android:layout_below="@+id/textView2"
                 android:layout_alignParentStart="true"
-                android:id="@+id/editText4"
+                android:id="@+id/UsernameEdittext"
                 android:layout_weight="15"
                 />
 
@@ -86,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText5"
+                android:id="@+id/PasswordEditext"
                 android:layout_below="@+id/editText4"
                 android:layout_alignParentStart="true"
                 android:layout_weight="30"/>
@@ -97,7 +92,7 @@
                 android:layout_height="81dp"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText3"
+                android:id="@+id/RepasswordEdittext"
                 android:layout_below="@+id/editText5"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
@@ -108,9 +103,7 @@
                 android:layout_height="81dp"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText6"
-                android:layout_below="@+id/editText3"
-                android:layout_alignParentStart="true"
+                android:id="@+id/RefferalCodeEdittext"
                 android:layout_gravity="center"
                 android:layout_weight="15" />
         </LinearLayout>
@@ -120,7 +113,7 @@
         android:text="SUBMIT YOURSELF!!!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
+        android:id="@+id/SignupButton"
         android:layout_gravity="center_horizontal"
         />
 </LinearLayout>

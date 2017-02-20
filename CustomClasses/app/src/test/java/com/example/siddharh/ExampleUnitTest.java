@@ -1,4 +1,4 @@
-package com.example.siddharh.customclasses;
+package com.example.siddharh;
 
 import org.junit.Test;
 
