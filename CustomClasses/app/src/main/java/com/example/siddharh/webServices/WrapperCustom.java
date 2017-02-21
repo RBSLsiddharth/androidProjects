@@ -2,8 +2,10 @@ package com.example.siddharh.webServices;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,7 +17,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Queue;
 
 import static com.android.volley.Request.*;
 
@@ -27,11 +33,11 @@ public class WrapperCustom {
 public static Context context;
 private static WrapperCustom instance;
 
-
     private WrapperCustom() {
     }
 
     public static WrapperCustom getInstance(Context cons) {
+
        context= cons;
         if(instance == null)
         {
@@ -42,10 +48,9 @@ private static WrapperCustom instance;
     }
 
     public Map<String,String> login(final Map<String,String> Parameters) {
-        final String Register_Url = "http://192.168.56.1/processing.php";
         final Map<String,String> UserId= new HashMap<>();
 
-        StringRequest jsonObjectRequest = new StringRequest(Method.POST, Register_Url, new Response.Listener<String>() {
+        /*StringRequest jsonObjectRequest = new StringRequest(Method.POST, Register_Url, new Response.Listener<String>() {
 
 
             @Override
@@ -78,15 +83,26 @@ private static WrapperCustom instance;
 
 
         };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(jsonObjectRequest);
+*/
 
         return UserId;
     }
 
+    public void addInQueue(Object object){
+        final Queue<Object> queue = new LinkedList<Object>();
+        Class<?> myobj = object.getClass();
+         queue.add(object);
+    }
 
+    public void showthequeue(Queue queue){
+        Iterator iterator =   queue.iterator();
+        while (iterator.hasNext()){
+            String element =  iterator.next().toString();
+            System.out.println("THE QUEUE HAS FOLLOWING ELEMENT" +element);
+        }
+    }
     public void redirect(){
+
           Intent intent = new Intent(context,LoginActivity.class);
         context.startActivity(intent);
     }

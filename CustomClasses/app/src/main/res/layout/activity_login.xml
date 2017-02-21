@@ -67,4 +67,12 @@
         android:layout_alignBaseline="@+id/PasswordEditext"
         android:layout_alignBottom="@+id/PasswordEditext"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/SubmitButton" />
 </RelativeLayout>

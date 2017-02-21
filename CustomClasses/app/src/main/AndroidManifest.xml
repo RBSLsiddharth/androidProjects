@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.example.siddharh.Configuration.LoginActivity">
-
-        </activity>
-        <activity android:name="com.example.siddharh.Configuration.SignupActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.example.siddharh.Configuration.SignupActivity" >
+
         </activity>
         <activity android:name="com.example.siddharh.Configuration.ToGetUseridActivity"></activity>
         <activity android:name="com.example.siddharh.Configuration.RefferalCodeActivity"></activity>

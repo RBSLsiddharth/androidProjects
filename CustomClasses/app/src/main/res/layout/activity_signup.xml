@@ -110,10 +110,16 @@
     </LinearLayout>
 
     <Button
+        android:text="Login"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:id="@+id/LoginButton" />
+
+    <Button
         android:text="SUBMIT YOURSELF!!!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SignupButton"
+        android:id="@+id/SubmitButton"
         android:layout_gravity="center_horizontal"
         />
 </LinearLayout>
