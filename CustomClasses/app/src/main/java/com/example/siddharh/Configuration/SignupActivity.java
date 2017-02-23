@@ -84,8 +84,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.SubmitButton:
                 SignupActivity a = new SignupActivity(username,password,refferalcode);
-                WrapperCustom.getInstance(this).addInQueue(a);
-                break;
+               /* WrapperCustom.getInstance(this).addInQueue(a);
+              */  break;
             case R.id.LoginButton:
                 redirect();
                 break;

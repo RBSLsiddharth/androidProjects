@@ -44,7 +44,7 @@ public class ToGetUseridActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.LoginButton:
                 Map<String, String> Finalparameters = new HashMap<String, String>();
-                Finalparameters = WrapperCustom.getInstance(this).login(fetchuserid());
+            //    Finalparameters = WrapperCustom.getInstance(this).login(fetchuserid());
                 UsernameEdittext.setText(Finalparameters.get("Userid"));
                 break;
 

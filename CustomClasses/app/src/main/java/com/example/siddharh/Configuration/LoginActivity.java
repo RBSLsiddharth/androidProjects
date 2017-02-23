@@ -9,14 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.example.siddharh.webServices.RequestObject;
 import com.example.siddharh.webServices.WrapperCustom;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Queue;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,MyClass {
     Button SubmitButton;
     Button LoginButton;
     EditText UsernameEdittext;
@@ -58,15 +62,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         /*Log.d("fix1",fix1);
         Log.d(TAG, "initializeView: width : " + fix1);
    */ }
-    public LoginActivity(String username,String password){
-      super();
-        System.out.println("i came in parameterized constructor");
+    public Map<String,String> Login(String username,String password){
         // Log.d(TAG, "initializeView: height : " + "sd");
 
         params.put(KEY_USERNAME,username);
         params.put(Key_PASSWORD,password);
         params.put(Key_CHOICE,"login");
-
+        return params;
 
     }
     public void redirect(){
@@ -80,14 +82,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.LoginButton:
                 username = UsernameEdittext.getText().toString().trim();
                 password = PasswordEditext.getText().toString().trim();
-                LoginActivity a = new LoginActivity(username,password);
-                WrapperCustom.getInstance(this).addInQueue(a);
-               // System.out.println("THE INSTANCE OF WRAPPER CLASS IS "+ WrapperCustom.getInstance(this));
-                 /* Map<String,String> Finalparameters =new HashMap<String,String>();
-                    Finalparameters = login();//this is the login call
-                      WrapperCustom.getInstance(this).login(Finalparameters);
-*/                                  break;
+             //   LoginActivity a = new LoginActivity(username,password);
+                Login(username,password);
+           /*     Map<String,String> Finalparameters =new HashMap<String,String>();
+                Finalparameters = //this is the login call
+                WrapperCustom.getInstance(this).addInQueue(LoginActivity.this);
+*/
+                RequestObject requestObject = new RequestObject(this);
+                requestObject.addinQueue(requestObject);
+                Queue queue = requestObject.queue;
+                Iterator iterator = queue.iterator();
+                WrapperCustom.getInstance(this).addInQueue((Request<Object>)iterator.next());
 
+               // System.out.println("THE INSTANCE OF WRAPPER CLASS IS "+ WrapperCustom.getInstance(this));
+                 /*    WrapperCustom.getInstance(this).login(Finalparameters);
+*/                                  break;
             case R.id.SubmitButton:
                 redirect();
                 break;
