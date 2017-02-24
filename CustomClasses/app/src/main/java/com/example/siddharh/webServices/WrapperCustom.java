@@ -2,6 +2,7 @@ package com.example.siddharh.webServices;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -42,8 +43,7 @@ private static WrapperCustom instance;
 
     private WrapperCustom(Context context) {
     cont=context;
-        requestqueue = getRequestQueue();
-      /*  queue =  new LinkedList<>();*/
+       /*  queue =  new LinkedList<>();*/
     }
 
     public static synchronized WrapperCustom getInstance(Context cons) {
@@ -56,71 +56,11 @@ private static WrapperCustom instance;
 
     }
 
-    public RequestQueue getRequestQueue(){
-        if (requestqueue == null) {
-            // getApplicationContext() is key, it keeps you from leaking the
-            // Activity or BroadcastReceiver if someone passes one in.
-            requestqueue = Volley.newRequestQueue(cont.getApplicationContext());
-        }
-        return requestqueue;
-    }
 
-    /*public Map<String,String> login(final Map<String,String> Parameters) {
-        final Map<String,String> UserId= new HashMap<>();
-
-        *//**//*StringRequest jsonObjectRequest = new StringRequest(Method.POST, Register_Url, new Response.Listener<String>() {
-
-
-            @Override
-            public void onResponse(String response) {
-
-              //      Toast.makeText(context,response,Toast.LENGTH_LONG).show();
-               try {
-                    JSONObject jsonObject = new JSONObject(response);
-                   Toast.makeText(context,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
-                   if(jsonObject.getString("type").equals("insert")){
-                      redirect();
-                   }else if(jsonObject.getString("message").equals("Userid found")){
-                       UserId.put("Userid",jsonObject.getString("userid"));
-                   }
-                } catch (JSONException e) {
-                  Toast.makeText(context,"YOU ARE STUCK UP WITH AN EXCEPTION" , Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(context,error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }) {    protected Map<String,String> getParams(){
-                  return Parameters;
-            }
-
-
-        };
-
-
-        return UserId;
-    }
-*/
-
-
-
-    public <T> void addToRequestQueue(Request<T> req) {
-        getRequestQueue().add(req);
-    }
-
-
-
-
-    public  void addInQueue(Request<Object> object){
+    public  void addInQueue(final Map<String,String> parameters){
         String Register_Url="http://192.168.56.1/processing.php";
-         final Map<String,String> UserId= new HashMap<>();
 
-        final StringRequest jsonObjectRequest = new StringRequest(Method.POST, Register_Url, new Response.Listener<String>() {
+        final StringRequest stringRequest = new StringRequest(Method.POST, Register_Url, new Response.Listener<String>() {
 
 
             @Override
@@ -130,9 +70,11 @@ try{
                 //      Toast.makeText(context,response,Toast.LENGTH_LONG).show();
                     Toast.makeText(cont,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
                     if(jsonObject.getString("type").equals("insert")){
-                        redirect();
-                    }else if(jsonObject.getString("message").equals("Userid found")){
-                        UserId.put("Userid",jsonObject.getString("userid"));
+                        Intent intent =  new Intent("userRegistered");
+                        LocalBroadcastManager.getInstance(cont).sendBroadcast(intent);
+                    }else if(jsonObject.getString("type").equals("login")){
+                        Intent intent =  new Intent("loggedin");
+                        LocalBroadcastManager.getInstance(cont).sendBroadcast(intent);
                     }
                 } catch (JSONException e) {
                     Toast.makeText(cont,"YOU ARE STUCK UP WITH AN EXCEPTION" , Toast.LENGTH_LONG).show();
@@ -146,28 +88,16 @@ try{
 
                 Toast.makeText(cont,error.toString(),Toast.LENGTH_LONG).show();
             }
-        }){
+        }){ protected Map<String,String> getParams(){
+             return parameters;
+        }
 
         };
-
-        getRequestQueue().add(object);
-
+             RequestObject requestObject = new RequestObject();
+             requestObject.getRequestQueue().add(stringRequest);
     }
 
 
-
-    //is for returning the element of a queue
-    public Object fetchtheelement(Queue queue){
-        Iterator iterator =   queue.iterator();
-        return iterator.next();
-    }
-
-    //is the redirect function for redirecting after the work is done
-    public void redirect(){
-
-        Intent intent = new Intent(cont,LoginActivity.class);
-        cont.startActivity(intent);
-    }
 
 }
 
