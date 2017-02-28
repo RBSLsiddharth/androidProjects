@@ -41,10 +41,10 @@ public class RequestHandler {
 
                 if(response.trim().equals(Config.SUCCESS)){
 
-                send("Successfully Loged In");
+                send(response);
 
                 }else{
-                    send("Please check your email and phoneno");
+                    send(response);
                 }
             }
         },
