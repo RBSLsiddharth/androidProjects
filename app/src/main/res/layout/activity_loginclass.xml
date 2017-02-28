@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="155dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/image1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+<RelativeLayout
+    android:layout_marginRight="25dp"
+    android:layout_marginLeft="25dp"
+    android:layout_below="@+id/imageView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/relativeLayout">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Sign In"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Email"
+
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView3"
+
+      />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/name"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+    <EditText
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/code"
+        android:text="+91"
+        android:backgroundTint="@color/colorPrimary"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:hint="@string/pno"
+        android:textColorHint="@color/colorPrimary"
+        android:id="@+id/phoneno"
+        android:layout_below="@+id/name"
+        android:layout_marginRight="23dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/question"
+        android:src="@drawable/info"
+        android:background="@null"
+        android:layout_alignBottom="@+id/phoneno"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:id="@+id/Policies"
+        android:buttonTint="@color/colorPrimary"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:checked="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Button_next"
+        android:textColor="#fff"
+        android:enabled="false"
+        android:background="@color/colorPrimary"
+        android:id="@+id/next"
+        android:layout_below="@+id/Policies"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp" />
+
+
+</RelativeLayout>
+
+
+</RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>

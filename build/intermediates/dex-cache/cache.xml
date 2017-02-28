@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/anshul/mixlabpractice/Threading/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="25.0.2"
+        sha1="72e7de822df1402bc334cc3091e627f6350d3fa6">
+        <dex dex="/home/anshul/mixlabpractice/Threading/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_365196e1f2c66541e888ad3003d4cd676db2c8c7/classes.dex" />
+    </item>
+
+</items>

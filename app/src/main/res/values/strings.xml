@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Rollr.io</string>
+    <string name="login">
+       By Signing in,you confirm that you accept our <u><b>Terms of Seervice</b></u> and <u><b>Privacy Policy</b></u>.
+    </string>
+    <string name="Button_next">Next</string>
+    <string name="pno">Phone Number</string>
+</resources>
