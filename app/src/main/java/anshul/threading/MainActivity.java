@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button handler,login;
+    Button mLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,22 +17,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String name = getIntent().getExtras().getString("name");
         Toast.makeText(MainActivity.this,name,Toast.LENGTH_LONG).show();
-
-        login = (Button)findViewById(R.id.button2);
-
-
+        mLogin = (Button)findViewById(R.id.button2);
+        mLogin.setOnClickListener(this);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,Loginclass.class);
-                startActivity(i);
-            }
-        });
+    public void onClick(View view) {
+        if(view.getId() == R.id.button2){
+            Intent i = new Intent(MainActivity.this,Loginclass.class);
+            startActivity(i);
+        }
     }
 }

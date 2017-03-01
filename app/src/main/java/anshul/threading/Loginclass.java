@@ -1,6 +1,5 @@
 package anshul.threading;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,28 +17,28 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 
+/** This is LoginActivity file where user fill his login credential and this file send details to
+ * server via RequestHandler class.This file send REST request via RequestHandler.
+ */
 public class Loginclass extends AppCompatActivity implements View.OnClickListener {
-    CoordinatorLayout coordinatorLayout;
-    ImageView questionImageView;
-    Button nextButton;
-    EditText nameEditText,codeEditText,phonenoEditText;
-    CheckBox policiesCheckBox;
-    IntentFilter intentFilter;
-    String serverResponse;
+    private CoordinatorLayout mCoordinatorLayout;
+    private ImageView mQuestionImageView;
+    private Button mNextButton;
+    private EditText mNameEditText,mCodeEditText,mPhonenoEditText;
+    private CheckBox mPoliciesCheckBox;
+    private IntentFilter mIntentFilter;
+    private String mServerResponse,mResponseCode;
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    //Local broadcast receiver
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            serverResponse = intent.getStringExtra("loginresponse");
+            mServerResponse = intent.getStringExtra(Config.M_SERVER_RESPONSE);
+            mResponseCode = intent.getStringExtra(Config.M_RESPONSE_CODE);
             Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, serverResponse, Snackbar.LENGTH_LONG);
-
+                    .make(mCoordinatorLayout, "\""+mServerResponse+"\" : \""
+                            +mResponseCode+"\"", Snackbar.LENGTH_LONG);
             snackbar.show();
         }
     };
@@ -49,124 +47,75 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginclass);
-        questionImageView = (ImageView) findViewById(R.id.question);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
-                .coordinatorLayout);
-        nextButton = (Button) findViewById(R.id.next);
-        nameEditText = (EditText) findViewById(R.id.name);
-        codeEditText = (EditText) findViewById(R.id.code);
-        phonenoEditText = (EditText) findViewById(R.id.phoneno);
-        policiesCheckBox= (CheckBox) findViewById(R.id.Policies);
-        questionImageView.setOnClickListener(this);
-        nextButton.setOnClickListener(this);
-        policiesCheckBox.setOnClickListener(this);
-
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+        mQuestionImageView = (ImageView) findViewById(R.id.question);
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        mNextButton = (Button) findViewById(R.id.next);
+        mNameEditText = (EditText) findViewById(R.id.name);
+        mCodeEditText = (EditText) findViewById(R.id.code);
+        mPhonenoEditText = (EditText) findViewById(R.id.phoneno);
+        mPoliciesCheckBox = (CheckBox) findViewById(R.id.Policies);
+        mQuestionImageView.setOnClickListener(this);
+        mNextButton.setOnClickListener(this);
+        mPoliciesCheckBox.setOnClickListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter textSentIntentFilter = new IntentFilter("response.LOGIN");
-        LocalBroadcastManager
-                .getInstance(Loginclass.this)
-                .registerReceiver(broadcastReceiver, textSentIntentFilter);
+        //Register receiver
+        IntentFilter textSentIntentFilter = new IntentFilter(Config.INTENT_LOGIN_ACTION);
+        LocalBroadcastManager.getInstance(Loginclass.this)
+                .registerReceiver(mBroadcastReceiver, textSentIntentFilter);
     }
-
-
 
     @Override
     protected void onPause() {
         super.onPause();
+        //Unregister receiver
         LocalBroadcastManager.getInstance(Loginclass.this)
-                .unregisterReceiver(broadcastReceiver);
+                .unregisterReceiver(mBroadcastReceiver);
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
-
-    private void sendd(String name, String code, String phoneno) {
+    private void send(String name, String code, String phoneno) {
         final String pno = code+"-"+phoneno;
+        //HashMap for Logig details
         Map<String,String> map = new HashMap<String,String>();
         map.put(Config.EMAIL,name);
         map.put(Config.PHONENO,pno);
         String url = Config.LOGIN_URL;
-        RequestHandler requestHandler = new RequestHandler();
+        //RequestHandler class object
+        RequestHandler requestHandler = new RequestHandler(this.getApplicationContext());
          requestHandler.send(map,url);
 
     }
 
-    private void send(final String name, String code, final String phoneno) {
-        final String pno = code+"-"+phoneno;
-        final ProgressDialog pDialog = new ProgressDialog(Loginclass.this);
-        pDialog.setMessage(Config.DIALOG);
-        pDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL ,new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                pDialog.dismiss();
-                if(response.trim().equals(Config.SUCCESS)){
-                    Toast.makeText(Loginclass.this,Config.SUCCESS,Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(Loginclass.this,response,Toast.LENGTH_LONG).show();
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Loginclass.this,error.toString(),Toast.LENGTH_LONG ).show();
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<String,String>();
-                map.put(Config.EMAIL,name);
-                map.put(Config.PHONENO,pno);
-                return map;
-            }
-
-        };
-        NetworkManager.getInstance().addToRequestQueue(stringRequest);
-
-    }
-
+    //Next button code
     private void next() {
         String name,code,phoneno;
-        name = nameEditText.getText().toString();
-        code = codeEditText.getText().toString();
-        phoneno = phonenoEditText.getText().toString();
-
+        name = mNameEditText.getText().toString();
+        code = mCodeEditText.getText().toString();
+        phoneno = mPhonenoEditText.getText().toString();
+        //If else condition to check wheather any field is empty or not
         if(name.matches("") || code.matches("") || phoneno.matches("")) {
             Toast.makeText(Loginclass.this,Config.FILL_FIELD,Toast.LENGTH_LONG).show();
         }else {
-            sendd(name,code,phoneno);
+            send(name,code,phoneno);
         }
     }
 
+    //Privacy Policy CheckBox code
     private void policies() {
-        if(policiesCheckBox.isChecked()) {
-            nextButton.setEnabled(true);
+        if(mPoliciesCheckBox.isChecked()) {
+            mNextButton.setEnabled(true);
         }else {
-            nextButton.setEnabled(false);
+            mNextButton.setEnabled(false);
         }
     }
 
+    //Question mark button CheckBox
     private void question() {
         Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, Config.QUESTION, Snackbar.LENGTH_LONG);
-
+                .make(mCoordinatorLayout, Config.QUESTION, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 

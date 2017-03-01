@@ -1,53 +1,39 @@
 package anshul.threading;
 
-import android.app.Application;
-import android.text.TextUtils;
-
+import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by root on 23/2/17.
+ * This is NetworkManager class that accept all requests and put them into queue.
  */
-public class NetworkManager extends Application {
-    public static final String TAG = NetworkManager.class.getSimpleName();
-
-    private RequestQueue mRequestQueue;
-
+public class NetworkManager{
     private static NetworkManager mInstance;
+    private RequestQueue mRequestQueue;
+    private static Context mCtx;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mInstance = this;
+    //Private constructor of NetworkManager class
+    private NetworkManager(Context context) {
+        mCtx = context;
+        mRequestQueue = getRequestQueue();
     }
 
-    public static synchronized NetworkManager getInstance() {
+    public static synchronized NetworkManager getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new NetworkManager(context);
+        }
         return mInstance;
     }
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
-
         return mRequestQueue;
     }
 
-    public <T> void addToRequestQueue(Request<T> req, String tag) {
-        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
-        getRequestQueue().add(req);
-    }
-
     public <T> void addToRequestQueue(Request<T> req) {
-        req.setTag(TAG);
         getRequestQueue().add(req);
-    }
-
-    public void cancelPendingRequests(Object tag) {
-        if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
-        }
     }
 }
