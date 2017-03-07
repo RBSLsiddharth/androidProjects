@@ -17,4 +17,5 @@ public class Config {
     public static final String M_RESPONSE_CODE = "responsecode";
     public static final String JSON_RESPONSE_MSG = "response";
     public static final String JSON_RESPONSE_CODE = "responsecode";
+    public static final String ADD_INQUEUE = "addinqueue";
 }

@@ -4,11 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.LogRecord;
 
 /** This is LoginActivity file where user fill his login credential and this file send details to
  * server via RequestHandler class.This file send REST request via RequestHandler.
@@ -30,6 +35,24 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
     private IntentFilter mIntentFilter;
     private String mServerResponse,mResponseCode;
 
+    Thread thread;
+    Handler handler=new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+
+            String name,code,phoneno;
+            name = mNameEditText.getText().toString();
+            code = mCodeEditText.getText().toString();
+            phoneno = mPhonenoEditText.getText().toString();
+            super.handleMessage(msg);
+           switch(msg.obj.toString()){
+               case "addinqueue" :send(name,code,phoneno);
+                   break;
+               case "localbroadcast" :
+                   break;
+           }
+              }
+    };
     //Local broadcast receiver
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -42,6 +65,7 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
             snackbar.show();
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +81,14 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
         mQuestionImageView.setOnClickListener(this);
         mNextButton.setOnClickListener(this);
         mPoliciesCheckBox.setOnClickListener(this);
+
+
+
+
+
+
     }
+
 
     @Override
     protected void onResume() {
@@ -67,7 +98,6 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
         LocalBroadcastManager.getInstance(Loginclass.this)
                 .registerReceiver(mBroadcastReceiver, textSentIntentFilter);
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -84,7 +114,7 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
         map.put(Config.PHONENO,pno);
         String url = Config.LOGIN_URL;
         //RequestHandler class object
-        RequestHandler requestHandler = new RequestHandler(this.getApplicationContext());
+         RequestHandler requestHandler = new RequestHandler(this.getApplicationContext());
          requestHandler.send(map,url);
 
     }
@@ -99,9 +129,27 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
         if(name.matches("") || code.matches("") || phoneno.matches("")) {
             Toast.makeText(Loginclass.this,Config.FILL_FIELD,Toast.LENGTH_LONG).show();
         }else {
-            send(name,code,phoneno);
+          /*  send(name,code,phoneno);*/
+            threadgeneration();
         }
     }
+
+    private void threadgeneration(){
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                Message message = Message.obtain();
+                message.obj = Config.ADD_INQUEUE;
+                handler.sendMessage(message);
+
+            }
+        });
+        thread.start();
+
+    }
+
+
 
     //Privacy Policy CheckBox code
     private void policies() {
@@ -114,8 +162,7 @@ public class Loginclass extends AppCompatActivity implements View.OnClickListene
 
     //Question mark button CheckBox
     private void question() {
-        Snackbar snackbar = Snackbar
-                .make(mCoordinatorLayout, Config.QUESTION, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(mCoordinatorLayout, Config.QUESTION, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
